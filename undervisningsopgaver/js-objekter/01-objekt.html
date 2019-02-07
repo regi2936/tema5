@@ -13,16 +13,28 @@
 <body>
 
 
-    <div id="dyr"></div>
+    <div id="dyr">
+        <h3></h3>
+        <p></p>
+        <img src="" alt="">
+    </div>
 
     <script>
         let dyr = {
             "navn": "Gris",
-            "Type": "Pattedyr",
-            "http://helf-kea.dk/test/gris.png",
-            "Bosted": "Svinefarm"
+            "type": "Pattedyr",
+            "billede": "http://helf-kea.dk/test/gris.png",
+            "bosted": "Svinefarm"
+
         };
 
+        let dest = document.querySelector("#dyr");
+        let fuldeInfo = `${dyr.navn} ${dyr.type} ${dyr.bosted}`;
+
+        dest.querySelector("h3").textContent = fuldeInfo;
+        dest.querySelector("img").src = dyr.billede;
+
+        console.log(dyr);
     </script>
 
 </body>
