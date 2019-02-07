@@ -14,9 +14,11 @@
 
 
     <div id="dyr">
-        <h3></h3>
-        <p></p>
+        <h2>Gris</h2>
         <img src="" alt="">
+        <p>Type: </p>
+        <p>Levested: </p>
+
     </div>
 
     <script>
@@ -30,9 +32,15 @@
 
         let dest = document.querySelector("#dyr");
         let fuldeInfo = `${dyr.navn} ${dyr.type} ${dyr.bosted}`;
+        let navn = `${dyr.navn}`;
+        let type = `${dyr.type}`;
+        let bosted = `${dyr.bosted}`;
 
-        dest.querySelector("h3").textContent = fuldeInfo;
+        dest.querySelector("h2").textContent = dyr.navn;
         dest.querySelector("img").src = dyr.billede;
+        dest.querySelector("p").textContent += dyr.type;
+        dest.querySelector("p+p").textContent += dyr.bosted;
+
 
         console.log(dyr);
 
