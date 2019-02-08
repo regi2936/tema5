@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <style>
+        body {
+            max-width: 1420px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        h2 {
+            font-family: cursive;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        img {
+            width: 150px;
+        }
+
+        #all_pers {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 2rem;
+        }
+
+        .pers {
+            text-align: center;
+            border: solid #3c3b3b 1px;
+            margin: 10px;
+            padding: 10px;
+            background: rgba(22, 88, 123, 0.84);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href=""></a>
+    <div id="all_pers">
+
+    </div>
+
+    <script>
+        window.addEventListener("load", start);
+
+        function start() {
+            let personLine = [];
+            async function getData() {
+                let personData = await fetch("personer.json");
+                personLine = await personData.json();
+                showAll();
+            }
+            console.log(personLine);
+            let persDest = document.querySelector("#all_pers");
+
+            function showAll() {
+                personLine.forEach(person => {
+                    persDest.innerHTML += `
+                        <div class="pers">
+                            <h2>${person.navn}</h2>
+                            <img src="${person.billede}" alt="">
+                           <br> <a href="https://github.com/${person.github}/tema5">GITHUB</a>
+                        </div> `
+                });
+            }
+            getData();
+        }
+    </script>
+</body>
+
+</html>
