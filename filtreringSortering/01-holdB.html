@@ -15,7 +15,7 @@
 
         h2 {
             font-family: cursive;
-            color: white;
+            color: rgba(255, 255, 255, 0.82);
             font-size: 1.8rem;
         }
 
@@ -57,6 +57,7 @@
 
         function start() {
             let personLine = [];
+            let filter = "b"
             async function getData() {
                 let personData = await fetch("personer.json");
                 personLine = await personData.json();
@@ -67,6 +68,7 @@
 
             function showAll() {
                 personLine.forEach(person => {
+                    if (person.hold == filter);
                     persDest.innerHTML += `
                         <div class="pers">
                             <h2>${person.navn}</h2>

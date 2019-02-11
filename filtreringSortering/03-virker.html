@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+
+<body>
+    <div>
+        <h1>Personliste</h1>
+    </div>
+    <div class="menu">
+        <button class="filter" data-hold="alleHold">Alle Hold</button>
+        <button class="filter" data-hold="a">Hold A</button>
+        <button class="filter valgt" data-hold="b">Hold B</button>
+    </div>
+    <div id="liste">
+    </div>
+
+    <style>
+        #liste {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            width: 100vw;
+            margin: 0 auto;
+            color: white;
+        }
+
+        img {
+            width: 150px;
+
+        }
+
+        p {
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        a {
+            color: aliceblue;
+            text-decoration: none;
+            font-family: cursive;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            font-family: cursive;
+        }
+
+        .allePersoner {
+            text-align: center;
+            border: solid #3c3b3b 1px;
+            margin: 10px;
+            padding: 10px;
+            background: rgba(22, 88, 123, 0.84);
+            border-radius: 5px;
+        }
+
+        .valgt {
+            background-color: grey;
+            color: white;
+        }
+
+        .menu {
+            text-align: center;
+        }
+    </style>
+
+
+    <script>
+        let personer = [];
+        let filter = "alleHold";
+        let dest = document.querySelector("#liste");
+        document.addEventListener("DOMContentLoaded", sidenVises);
+
+        function sidenVises() {
+            async function getJson() {
+                let jsonData = await fetch("personer.json");
+                personer = await jsonData.json();
+                visListe();
+            }
+
+            function visListe() {
+                dest.innerHTML = "";
+                personer.forEach(alle => {
+                    if (filter == "alleHold" || filter == alle.hold) {
+                        dest.innerHTML += `
+<div class="allePersoner">
+    <div> <img src="${alle.billede}"> </div>
+    <div>
+        <h2>${alle.navn}</h2>
+        <a href="https://github.com/${alle.github}">
+            <b>Github: ${alle.github}</b>
+         </a>
+        <p> ${alle.alder}</p>
+        <p> ${alle.køn}</p>
+        <p> ${alle.email}</p>
+        <p> ${alle.hold}</p>
+        <p> ${alle.historie}</p>
+    </div>
+</div>
+`
+                    }
+                });
+            }
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
+
+            function filtrering() {
+                filter = this.getAttribute("data-hold");
+                console.log(filter);
+                visListe();
+            }
+            getJson();
+        }
+    </script>
+
+</body>
+
+</html>

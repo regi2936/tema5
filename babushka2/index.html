@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <section id="eventcontainer">
+        <template id="event-template">
+            <article>
+                <h2>Navn</h2>
+                <div class="data-id"></div>
+                <div class="data-kategori"></div>
+                <div class="data-pris"></div>
+                <div class="data-kort"></div>
+                <div class="data-lang"></div>
+                <div class="data-oprindelse"></div>
+                <img src="" alt="">
+            </article>
+        </template>
+
+    </section>
+
+
+
+    <script>
+        async function getJson() {
+            let myTemplate = document.querySelector("#event-template");
+            let modtager = document.querySelector("#eventcontainer");
+
+            //hent json
+            let jsonObject = await fetch("retter.json")
+            let event = await jsonObject.json();
+            console.log(event);
+
+            event.forEach(function(lektion) {
+
+                let klon = myTemplate.cloneNode(true).content;
+                klon.querySelector("#data-id").textContent = lektion.id;
+                klon.querySelector("#data-kategori").textContent = lektion.kategori;
+                klon.querySelector("#data-pris").textContent = lektion.pris;
+                klon.querySelector("#data-kort").textContent = lektion.kort;
+                klon.querySelector("#data-lang").textContent = lektion.lang;
+                klon.querySelector("#data-oprindelse").textContent = lektion.oprindelse;
+
+                modtager.appendChild(klon);
+
+            })
+
+        }
+        document.addEventListener("DOMContentLoaded", getJson);
+    </script>
+
+</body>
+
+</html>
