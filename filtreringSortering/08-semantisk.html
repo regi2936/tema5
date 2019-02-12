@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+
     <style>
         #liste {
             display: grid;
@@ -55,7 +56,6 @@
         }
 
     </style>
-
 </head>
 
 <body>
@@ -82,6 +82,9 @@
             async function getJson() {
                 let jsonData = await fetch("personer.json");
                 personer = await jsonData.json();
+                personer.sort((a, b) => {
+                    return a.navn.localeCompare(b.navn);
+                })
                 visListe();
             }
 
@@ -91,10 +94,9 @@
                     if (filter == "alleHold" || filter == alle.hold) {
                         dest.innerHTML += `
 <div class="allePersoner">
-
+    <div> <img src="${alle.billede}"> </div>
     <div>
         <h2>${alle.navn}</h2>
-<div> <img src="${alle.billede}"> </div>
         <a href="https://github.com/${alle.github}">
             <b>Github: ${alle.github}</b>
          </a>
@@ -116,6 +118,10 @@
             function filtrering() {
                 filter = this.getAttribute("data-hold");
                 document.querySelector("h1").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
                 visListe();
             }
             getJson();

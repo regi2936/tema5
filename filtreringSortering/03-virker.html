@@ -5,19 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-</head>
-
-<body>
-    <div>
-        <h1>Personliste</h1>
-    </div>
-    <div class="menu">
-        <button class="filter" data-hold="alleHold">Alle Hold</button>
-        <button class="filter" data-hold="a">Hold A</button>
-        <button class="filter valgt" data-hold="b">Hold B</button>
-    </div>
-    <div id="liste">
-    </div>
 
     <style>
         #liste {
@@ -66,7 +53,23 @@
         .menu {
             text-align: center;
         }
+
     </style>
+
+</head>
+
+<body>
+    <div>
+        <h1>Personliste</h1>
+    </div>
+    <div class="menu">
+        <button class="filter" data-hold="alleHold">Alle Hold</button>
+        <button class="filter" data-hold="a">Hold A</button>
+        <button class="filter valgt" data-hold="b">Hold B</button>
+    </div>
+    <div id="liste">
+    </div>
+
 
 
     <script>
@@ -116,6 +119,7 @@
             }
             getJson();
         }
+
     </script>
 
 </body>

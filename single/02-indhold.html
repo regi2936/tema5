@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+
     <style>
         #liste {
             display: grid;
@@ -54,11 +55,45 @@
             text-align: center;
         }
 
+        #popup {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: skyblue;
+            display: none;
+
+        }
+
+        #indhold {
+            box-sizing: border-box;
+            background-color: lightgray;
+            width: 90vw;
+            height: 90vh;
+            margin: auto;
+        }
+
+        #luk {
+            box-sizing: border-box;
+            text-align: right;
+            padding-right: 1em;
+        }
+
+        #luk button {
+            font-size: 2em;
+        }
+
+        html {
+            overflow-y: hidden;
+        }
     </style>
 
 </head>
 
 <body>
+    <div id="popup">
+        <div id="luk"><button>X</button></div>
+        <div id="indhold"></div>
+    </div>
     <div>
         <h1>Personliste</h1>
     </div>
@@ -72,6 +107,7 @@
 
 
 
+
     <script>
         let personer = [];
         let filter = "alleHold";
@@ -82,6 +118,9 @@
             async function getJson() {
                 let jsonData = await fetch("personer.json");
                 personer = await jsonData.json();
+                personer.sort((a, b) => {
+                    return a.navn.localeCompare(b.navn);
+                })
                 visListe();
             }
 
@@ -91,10 +130,9 @@
                     if (filter == "alleHold" || filter == alle.hold) {
                         dest.innerHTML += `
 <div class="allePersoner">
-
+    <div> <img src="${alle.billede}"> </div>
     <div>
         <h2>${alle.navn}</h2>
-<div> <img src="${alle.billede}"> </div>
         <a href="https://github.com/${alle.github}">
             <b>Github: ${alle.github}</b>
          </a>
@@ -116,11 +154,14 @@
             function filtrering() {
                 filter = this.getAttribute("data-hold");
                 document.querySelector("h1").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
                 visListe();
             }
             getJson();
         }
-
     </script>
 
 
